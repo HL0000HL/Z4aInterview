@@ -19,3 +19,8 @@ dotnet build
 ```bash
 dotnet test
 ```
+
+- Run all tests and show testcases on console:
+```bash
+dotnet test --logger "console;verbosity=detailed"
+```
