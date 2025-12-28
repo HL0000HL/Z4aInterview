@@ -1,0 +1,55 @@
+# IDEs
+.idea/
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.DotSettings.user
+
+# Rider
+/*.sln.iml
+
+# Build outputs
+bin/
+obj/
+artifacts/
+Debug/
+Release/
+publish/
+
+# NuGet
+packages/
+*.nupkg
+project.assets.json
+
+# Runtime / execution artifacts
+*.deps.json
+*.runtimeconfig.json
+*.runtimeconfig.dev.json
+*.runtimeconfig.*
+*.dll
+*.exe
+*.pdb
+
+# Test results / coverage
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+coverage*.xml
+coverage*.json
+*.trx
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+node_modules/
+/.env
