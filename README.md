@@ -1,6 +1,6 @@
-# InterviewZenika — Run tests
+# Run tests
 
-In Solotion folder InterviewZenika/
+In Solotion folder
 
 - Restore dependencies for the solution:
 
