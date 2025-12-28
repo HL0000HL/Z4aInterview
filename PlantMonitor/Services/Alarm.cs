@@ -15,7 +15,7 @@
 
         private readonly ISensorWrapper _sensor;
 
-        bool _alarmOn = false;
+        bool _alarmOn = false; // todo: check alarm off scenario
         private long _alarmCount = 0; // todo: check when count can be reset to 0
 
 

@@ -5,6 +5,8 @@ namespace InterviewEmptyUnitTest;
 
 public class Tests
 {
+    private const long JustBelowLowThreshold = 16;
+    private const long AtLowThreshold = 17;
     private Alarm _Target;
     private SensorWrapperTest _sensorWrapper;
 
@@ -15,11 +17,11 @@ public class Tests
         _Target = new Alarm(_sensorWrapper);
     }
 
-    [TestCase(16)]
+    [TestCase(JustBelowLowThreshold)]
     [TestCase(0)]
     [TestCase(-1)]
     [TestCase(long.MinValue)]
-    public void GivenBelowRangeWhenGetMeasurementThenAlarmStart(long measurement)
+    public void GivenAlarmOffWhenMeasurementIsBelowRangeThenAlarmStart(long measurement)
     {
         GivenCurrentAlarmIsOff();
         WhenSensorMeasurementIs(measurement);
@@ -28,18 +30,55 @@ public class Tests
     
     [TestCase(22)]
     [TestCase(long.MaxValue)]
-    public void GivenAboveRangeWhenGetMeasurementThenAlarmStart(long measurement)
+    public void GivenAlarmOffWhenGetMeasurementIsAboveRangeThenAlarmStart(long measurement)
     {
         GivenCurrentAlarmIsOff();
         WhenSensorMeasurementIs(measurement);
         ThenAlarmStart();
     }
     
+    [TestCase(AtLowThreshold)]
+    [TestCase(18)]
+    [TestCase(20)]
+    [TestCase(21)]
+    public void GivenAlarmOffWhenGetMeasurementIsWithinRangeThenAlarmOff(long measurement)
+    {
+        GivenCurrentAlarmIsOff();
+        WhenSensorMeasurementIs(measurement);
+        ThenAlarmOff();
+    }
+
+    [Test]
+    public void GivenAlarmOnWhenMeasurementIsOutRangeThenAlarmKeepOn()
+    {
+        GivenCurrentAlarmIsOnForCount(1);
+        WhenSensorMeasurementIs(JustBelowLowThreshold);
+        ThenAlarmKeepOnForCount(2);
+    }
+    
+    [Ignore("Check Alarm off case")]
+    [Test]
+    public void GivenAlarmOnWhenMeasurementIsWithinRangeThenAlarmOff()
+    {
+        GivenCurrentAlarmIsOnForCount(1);
+        WhenSensorMeasurementIs(AtLowThreshold);
+        ThenAlarmOff();
+    }
 
     private void ThenAlarmStart()
     {
         _Target.AlarmOn.Should().BeTrue();
         _Target.AlarmCount.Should().Be(1);
+    }
+    private void ThenAlarmKeepOnForCount(long count)
+    {
+        _Target.AlarmOn.Should().BeTrue();
+        _Target.AlarmCount.Should().Be(count);
+    }
+    private void ThenAlarmOff()
+    {
+        _Target.AlarmOn.Should().BeFalse();
+        _Target.AlarmCount.Should().Be(0);
     }
 
     private void WhenSensorMeasurementIs(long measurement)
@@ -52,6 +91,19 @@ public class Tests
     {
         _Target.AlarmOn.Should().BeFalse();
         _Target.AlarmCount.Should().Be(0);
+    }
+    
+    private void GivenCurrentAlarmIsOnForCount(long count)
+    {
+        _Target.AlarmOn.Should().BeFalse();
+        _Target.AlarmCount.Should().Be(0);
+        for (int i = 0; i < count; i++)
+        {
+            _sensorWrapper.SetMeasurementForTest(JustBelowLowThreshold);
+            _Target.Check();
+        }
+        _Target.AlarmOn.Should().BeTrue();
+        _Target.AlarmCount.Should().Be(count);
     }
 }
 
