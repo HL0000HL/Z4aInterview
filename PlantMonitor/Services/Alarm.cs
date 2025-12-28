@@ -34,5 +34,9 @@
         {
             get { return _alarmOn; }
         }
+        public long AlarmCount
+        {
+            get { return _alarmCount; }
+        }
     }
 }

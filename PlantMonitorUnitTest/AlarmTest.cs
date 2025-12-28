@@ -19,9 +19,11 @@ public class Tests
     public void GivenBelowRangeWhenGetMeasurementThenAlarmOn()
     {
         _Target.AlarmOn.Should().BeFalse();
+        _Target.AlarmCount.Should().Be(0);
         _sensorWrapper.SetMeasurementForTest(14);
         _Target.Check();
         _Target.AlarmOn.Should().BeTrue();
+        _Target.AlarmCount.Should().Be(1);
     }
 }
 
