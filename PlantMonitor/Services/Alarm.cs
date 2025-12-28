@@ -2,10 +2,18 @@
 {
     public class Alarm
     {
+        public Alarm()
+        {
+            _sensor = new SensorWrapper();
+        }
+        public Alarm(ISensorWrapper sensor)
+        {
+            _sensor = sensor;
+        }
         private const double LowThreshold = 17;
         private const double HighThreshold = 21;
 
-        Sensor _sensor = new Sensor();
+        private readonly ISensorWrapper _sensor;
 
         bool _alarmOn = false;
         private long _alarmCount = 0;
@@ -13,7 +21,7 @@
 
         public void Check()
         {
-            double value = _sensor.NextMeasure();
+            double value = _sensor.GetMeasurement();
 
             if (value < LowThreshold | HighThreshold  < value)
             {

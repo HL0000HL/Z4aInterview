@@ -6,16 +6,36 @@ namespace InterviewEmptyUnitTest;
 public class Tests
 {
     private Alarm _Target;
-    
+    private SensorWrapperTest _sensorWrapper;
+
     [SetUp]
     public void Setup()
     {
-        _Target = new Alarm();
+        _sensorWrapper = new SensorWrapperTest();
+        _Target = new Alarm(_sensorWrapper);
     }
 
     [Test]
-    public void GivenBelowRangeAlarmOn()
+    public void GivenBelowRangeWhenGetMeasurementThenAlarmOn()
     {
-        
+        _Target.AlarmOn.Should().BeFalse();
+        _sensorWrapper.SetMeasurementForTest(14);
+        _Target.Check();
+        _Target.AlarmOn.Should().BeTrue();
+    }
+}
+
+public class SensorWrapperTest : ISensorWrapper
+{
+    private double _measurement;
+
+    public double GetMeasurement()
+    {
+        return _measurement;
+    }
+
+    public void SetMeasurementForTest(double measurement)
+    {
+        _measurement = measurement;
     }
 }
