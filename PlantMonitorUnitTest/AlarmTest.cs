@@ -7,6 +7,8 @@ public class Tests
 {
     private const long JustBelowLowThreshold = 16;
     private const long AtLowThreshold = 17;
+    private const long AtHighThreshold = 21;
+    private const long JustAboveHighThreshold = 22;
     private Alarm _Target;
     private SensorWrapperTest _sensorWrapper;
 
@@ -28,7 +30,7 @@ public class Tests
         ThenAlarmStart();
     }
     
-    [TestCase(22)]
+    [TestCase(JustAboveHighThreshold)]
     [TestCase(long.MaxValue)]
     public void GivenAlarmOffWhenGetMeasurementIsAboveRangeThenAlarmStart(long measurement)
     {
@@ -40,7 +42,7 @@ public class Tests
     [TestCase(AtLowThreshold)]
     [TestCase(18)]
     [TestCase(20)]
-    [TestCase(21)]
+    [TestCase(AtHighThreshold)]
     public void GivenAlarmOffWhenGetMeasurementIsWithinRangeThenAlarmOff(long measurement)
     {
         GivenCurrentAlarmIsOff();
@@ -56,7 +58,7 @@ public class Tests
         ThenAlarmKeepOnForCount(2);
     }
     
-    [Ignore("Check Alarm off case")]
+    [Ignore("clarify alarm off case")]
     [Test]
     public void GivenAlarmOnWhenMeasurementIsWithinRangeThenAlarmOff()
     {
