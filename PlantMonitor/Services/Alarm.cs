@@ -16,14 +16,14 @@
         private readonly ISensorWrapper _sensor;
 
         bool _alarmOn = false;
-        private long _alarmCount = 0;
+        private long _alarmCount = 0; // todo: check when count can be reset to 0
 
 
         public void Check()
         {
             double value = _sensor.GetMeasurement();
 
-            if (value < LowThreshold | HighThreshold  < value)
+            if (value < LowThreshold || HighThreshold  < value)
             {
                 _alarmOn = true;
                 _alarmCount += 1;
