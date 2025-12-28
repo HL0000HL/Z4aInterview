@@ -24,3 +24,13 @@ dotnet test
 ```bash
 dotnet test --logger "console;verbosity=detailed"
 ```
+
+## Containerized tests (Docker)
+
+Prerequisites: Docker installed.
+
+- **Build test image:**
+
+```bash
+docker build -t interviewzenika-tests . --progress=plain
+```
