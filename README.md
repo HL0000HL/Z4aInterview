@@ -32,5 +32,5 @@ Prerequisites: Docker installed.
 - **Build test image:**
 
 ```bash
-docker build -t interviewzenika-tests . --progress=plain
+docker build -t interviewz4a-tests . --progress=plain
 ```

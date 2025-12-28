@@ -5,8 +5,8 @@ WORKDIR /src
 COPY . .
 
 # Restore and build
-RUN dotnet restore InterviewZenika.sln
-RUN dotnet build InterviewZenika.sln --configuration Debug --no-restore
+RUN dotnet restore InterviewZ4a.sln
+RUN dotnet build InterviewZ4a.sln --configuration Debug --no-restore
 
 # Run tests and export results
 RUN dotnet test PlantMonitorUnitTest/PlantMonitorUnitTest.csproj \
